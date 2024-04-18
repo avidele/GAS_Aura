@@ -1,0 +1,34 @@
+// Copyright Avidel
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Character.h"
+#include "AINavCharacter.generated.h"
+
+UCLASS()
+class AURA_API AAINavCharacter : public ACharacter
+{
+	GENERATED_BODY()
+
+public:
+	// Sets default values for this character's properties
+	AAINavCharacter();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Default")
+	TObjectPtr<USkeletalMeshComponent> SkeletalMeshComponent;
+	
+	
+};
