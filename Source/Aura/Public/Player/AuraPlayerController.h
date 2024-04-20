@@ -51,7 +51,6 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UAuraConfigInput> InputConfig;
-
 	
 	float FollowTime = 0.f;
 	bool bTargeting = false;

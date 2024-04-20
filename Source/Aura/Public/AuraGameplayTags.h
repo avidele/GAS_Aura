@@ -15,6 +15,8 @@ struct FAuraGameplayTags
 public:
  static const FAuraGameplayTags& Get() { return GameplayTags; }
  static void InitializeNativeGameplayTags();
+
+ FGameplayTag Attribute_Primary_Speed;
  FGameplayTag Attribute_Primary_Strength;
  FGameplayTag Attribute_Primary_Intelligence;
  FGameplayTag Attribute_Primary_Resilience;

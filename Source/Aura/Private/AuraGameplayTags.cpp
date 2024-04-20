@@ -31,6 +31,10 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("Reduces incoming damage")
 		);
 
+	GameplayTags.Attribute_Primary_Speed = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Attributes.Secondary.AttackSpeed"),
+		FString("Increases attack speed"));
+
 	GameplayTags.Attribute_Secondary_ArmorPenetration = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.ArmorPenetration"),
 		FString("Ignores a percentage of the target's armor"));
