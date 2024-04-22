@@ -1,10 +1,9 @@
 // Copyright Avidel
 
 #pragma once
-
-#include "AuraHeroComponent.generated.h"
 #include "Components/PawnComponent.h"
 #include "CoreMinimal.h"
+#include "AuraHeroComponent.generated.h"
 
 class AAuraPlayerController;
 /**

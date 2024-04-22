@@ -1,6 +1,9 @@
 ﻿#include "Actor/AuraProjectile.h"
+
 #include "Components/SphereComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 AAuraProjectile::AAuraProjectile()
 {
@@ -20,14 +23,23 @@ AAuraProjectile::AAuraProjectile()
 	ProjectileMovementComponent->InitialSpeed = 1000.f;
 	ProjectileMovementComponent->MaxSpeed = 1000.f;
 	ProjectileMovementComponent->ProjectileGravityScale = 0.f;
+	
 }
 
 void AAuraProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+	UGameplayStatics::PlaySoundAtLocation(this, ShootSound, GetActorLocation());
 }
 
-void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AAuraProjectile::OnOverlap(AActor* TargetActor)
 {
+	Super::OnOverlap(TargetActor);
+	UGameplayStatics::PlaySoundAtLocation(this, OnHitSound, TargetActor->GetActorLocation());
+	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), OnHitNiagaraEffect, TargetActor->GetActorLocation());
+	// UGameplayStatics::OpenLevel(this, FName("StarRailMap"));
+	Destroy();
 }
+
+
+

@@ -1,13 +1,16 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
+#include "AuraEffectActor.h"
 #include "GameFramework/Actor.h"
+#include "NiagaraComponent.h"
+#include "UnluaInterface.h"
 #include "AuraProjectile.generated.h"
 
 class USphereComponent;
 class UProjectileMovementComponent;
 
 UCLASS()
-class AURA_API AAuraProjectile : public AActor
+class AURA_API AAuraProjectile : public AAuraEffectActor, public IUnLuaInterface
 {
 	GENERATED_BODY()
 public:
@@ -18,9 +21,18 @@ public:
 
 	protected:
 	virtual void BeginPlay() override;
-
-	UFUNCTION()
-	void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	
+	virtual void OnOverlap(AActor* TargetActor) override;
+	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> SphereComponent;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> ShootSound;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> OnHitSound;
+	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UNiagaraSystem> OnHitNiagaraEffect;
 };
