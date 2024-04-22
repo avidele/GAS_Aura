@@ -1,4 +1,8 @@
 ﻿#include "Actor/AuraProjectile.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+#include "GameplayEffectTypes.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -20,6 +24,10 @@ AAuraProjectile::AAuraProjectile()
 	ProjectileMovementComponent->InitialSpeed = 1000.f;
 	ProjectileMovementComponent->MaxSpeed = 1000.f;
 	ProjectileMovementComponent->ProjectileGravityScale = 0.f;
+
+	OnHitNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("OnHitNiagaraComponent"));
+	OnHitNiagaraComponent->SetupAttachment(SphereComponent);
+	OnHitNiagaraComponent->bAutoActivate = false;
 }
 
 void AAuraProjectile::BeginPlay()
@@ -27,7 +35,10 @@ void AAuraProjectile::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AAuraProjectile::OnOverlap(AActor* TargetActor)
 {
+	Super::OnOverlap(TargetActor);
+	OnHitNiagaraComponent->Activate();
 }
+
+

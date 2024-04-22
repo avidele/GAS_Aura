@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Coreminimal.h"
+#include "CoreMinimal.h"
 #include "AuraGameplayAbility.h"
 #include "Abilities/GameplayAbility.h"
 #include "AuraProjectileSpell.generated.h"
