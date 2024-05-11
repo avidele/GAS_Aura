@@ -5,6 +5,7 @@
 
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Character/AuraHeroComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
@@ -20,6 +21,21 @@ AAuraCharacter::AAuraCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	L_Weapon = CreateDefaultSubobject<UStaticMeshComponent>("L_Weapon");
+	L_Weapon->SetupAttachment(GetMesh(), FName("LeftWeaponSocket"));
+	L_Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	R_Weapon = CreateDefaultSubobject<UStaticMeshComponent>("R_Weapon");
+	R_Weapon->SetupAttachment(GetMesh(), FName("RightWeaponSocket"));
+	R_Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	
+}
+
+UAuraHeroComponent* AAuraCharacter::GetCombatComponent() const
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	return AuraPlayerState->GetHeroCombatComponent();
 }
 
 void AAuraCharacter::PossessedBy(AController* NewController)
@@ -62,4 +78,12 @@ void AAuraCharacter::InitAbilityActorInfo()
 		}
 	}
 	InitializeDefaultAttributes();
+}
+
+void AAuraCharacter::InitializeDefaultAttributes() const
+{
+	Super::InitializeDefaultAttributes();
+	ApplyEffectToSelf(DefaultPrimaryAttributes,1.f);
+	ApplyEffectToSelf(DefaultSecondaryAttributes,1.f);
+	ApplyEffectToSelf(DefaultVitalAttributes,1.f);
 }

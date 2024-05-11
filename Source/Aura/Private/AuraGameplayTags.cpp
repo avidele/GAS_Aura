@@ -95,4 +95,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Ability_CommonAttack_Cooldown = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Ability.CommonAttack.Cooldown"),
 		FString("Cooldown for common attack"));
+
+	GameplayTags.InputSettings_ClickToFindPath = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	FName("InputSettings.ClickToFindPath"),
+	FString("Set Click To Find Path True"));
 }

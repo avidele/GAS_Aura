@@ -45,4 +45,5 @@ void AAuraEnemy::InitAbilityActorInfo()
 {
 	AbilitySystem->InitAbilityActorInfo(this,this);
 	Cast<UAuraAbilitySystemComponent>(AbilitySystem)->AbilityActorInfoSet();
+	ApplyEffectToSelf(DefaultPrimaryAttributes,1.f);
 }

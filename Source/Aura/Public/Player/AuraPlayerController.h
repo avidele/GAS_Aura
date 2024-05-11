@@ -28,12 +28,17 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
+	void Look(const FInputActionValue& InputActionValue);
+
 private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> AuraContext;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;
+	
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> LookAction;
 	
 	void Move(const FInputActionValue& InputActionValue);
 	void CursorTrace();
@@ -58,12 +63,12 @@ private:
 	float ShortPressThreshold = 0.5f;
 	FVector CachedDestination = FVector::ZeroVector;
 
-	UPROPERTY(EditDefaultsOnly)
-	float AutoRunAcceptanceRadius = 5.f;
+	// UPROPERTY(EditDefaultsOnly)
+	// float AutoRunAcceptanceRadius = 5.f;
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent> Spline;
 
-	void AutoRun();
+	// void AutoRun();
 };
 

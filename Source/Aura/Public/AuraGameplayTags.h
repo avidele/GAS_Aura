@@ -40,6 +40,8 @@ public:
  FGameplayTag InputTag_4;
 
  FGameplayTag Ability_CommonAttack_Cooldown;
+
+ FGameplayTag InputSettings_ClickToFindPath;
  
 private:
  static FAuraGameplayTags GameplayTags;
