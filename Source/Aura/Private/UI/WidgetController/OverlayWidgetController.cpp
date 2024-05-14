@@ -8,7 +8,7 @@
 
 void UOverlayWidgetController::BroadcastInitialValues()
 {
-	UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
+	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
 	OnHealthChange.Broadcast(AuraAttributeSet->GetHealth());
 	OnManaChange.Broadcast(AuraAttributeSet->GetMana());
 	OnMaxHealthChange.Broadcast(AuraAttributeSet->GetMaxHealth());
@@ -17,7 +17,7 @@ void UOverlayWidgetController::BroadcastInitialValues()
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
 {
-	UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
+	const UAuraAttributeSet* AuraAttributeSet = CastChecked<UAuraAttributeSet>(AttributeSet);
 
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
 		AuraAttributeSet->GetHealthAttribute()).AddLambda(
@@ -43,8 +43,7 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
-				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
-				if (Tag.MatchesTag(MessageTag))
+				if (FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message")); Tag.MatchesTag(MessageTag))
 				{
 					// const FString Msg = FString::Printf(TEXT("GE Tag: %s"),*Tag.ToString());
 					// GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Blue, Msg);

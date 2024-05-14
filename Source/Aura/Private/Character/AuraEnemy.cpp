@@ -6,6 +6,7 @@
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Aura/Aura.h"
+#include "Components/WidgetComponent.h"
 
 AAuraEnemy::AAuraEnemy()
 {
@@ -15,6 +16,11 @@ AAuraEnemy::AAuraEnemy()
 	AbilitySystem->SetIsReplicated(true);
 	AbilitySystem->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("Attribute Set");
+
+	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
+	HealthBar->SetupAttachment(GetRootComponent());
+	HealthBar->SetWidgetSpace(EWidgetSpace::Screen);
+	HealthBar->SetDrawSize(FVector2D(100, 10));
 }
 void AAuraEnemy::HighlightActor()
 {

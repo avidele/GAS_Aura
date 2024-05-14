@@ -31,9 +31,7 @@ struct FWidgetControllerParams
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<UAttributeSet> AttributeSet = nullptr;
 };
-/**
- * 
- */
+
 UCLASS()
 class AURA_API UAuraWidgetController : public UObject
 {

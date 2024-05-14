@@ -2,8 +2,12 @@
 
 
 #include "Character/AuraCharacterBase.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemLibrary.h"
+#include "UObject/FastReferenceCollector.h"
 
 AAuraCharacterBase::AAuraCharacterBase()
 {
@@ -56,6 +60,13 @@ void AAuraCharacterBase::AddCharacterAbilities()
 	AuraASC->AddCharacterAbilities(StartupAbilities);
 }
 
-
-
-
+void AAuraCharacterBase::ApplyEffectToTarget(AActor* Actor, TSubclassOf<UGameplayEffect> GameplayEffectClass,
+	float Level)
+{
+	if (UAuraAbilitySystemComponent* AbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Actor)))
+	{
+		FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
+		FGameplayEffectSpecHandle GameplayEffectSpec = AbilitySystemComponent->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
+		AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpec.Data.Get());
+	}
+}

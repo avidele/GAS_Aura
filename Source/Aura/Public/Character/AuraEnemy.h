@@ -7,6 +7,7 @@
 #include "Interaction/EnemyInterface.h"
 #include "AuraEnemy.generated.h"
 
+class UWidgetComponent;
 /**
  * 
  */
@@ -25,6 +26,9 @@ public:
 	/** Combat Interface */
 	virtual int32 GetPlayerLevel() override;
 	/** End Combat Interface */
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UWidgetComponent> HealthBar;
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
